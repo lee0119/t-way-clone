@@ -23,6 +23,7 @@ public class ResponseDto<T> {
   static class Error {
     private String code;
     private String message;
+
   }
 
 }

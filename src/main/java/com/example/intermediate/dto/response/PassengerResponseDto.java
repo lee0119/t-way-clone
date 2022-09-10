@@ -10,6 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PassengerResponseDto {
-  private Long id;
-  private int subTotal;
+  private long bookingNum;
 }
