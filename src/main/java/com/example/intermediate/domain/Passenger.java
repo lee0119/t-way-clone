@@ -14,23 +14,35 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Passenger  {
+public class Passenger extends Timestamped {
+
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(nullable = false)
   private Long id;
 
-  //해당 passenger를 포함하는 ticket
+  @Column(nullable = false)
+  private String gender;
+
+  @Column(nullable = false)
+  private String country;
+
+  @Column(nullable = false)
+  private String name;
+
+  @Column(nullable = false)
+  private String birth;
+
+  @Column(nullable = false)
+  private String email;
+
+  @Column(nullable = false)
+  private String number;
+
   @JoinColumn(name = "ticket_id", nullable = false)
   @ManyToOne(fetch = FetchType.LAZY)
   private Ticket ticket;
-
-  //해당 passenger의 전체 cost 비용 합
-  @Column(nullable = false)
-  private int subTotal;
-
-  //cost 삭제 및 생성에 의한 비용 변경시 subtotal 갱신
-  public void uppassenger(int pay){
-    this.subTotal += pay;
-  }
 }
+
+
+

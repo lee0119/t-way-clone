@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface PassengerRepository extends JpaRepository<Passenger, Long> {
   List<Passenger> findAllByTicket(Ticket ticket);
-  void deleteAllByTicket(Ticket ticket);
-  List<Passenger> findAllByTicketOrderById(Ticket ticket);
+//  void deleteAllByTicket(Ticket ticket);
+//  List<Passenger> findAllByTicketOrderById(Ticket ticket);
 }

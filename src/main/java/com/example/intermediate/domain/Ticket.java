@@ -20,6 +20,8 @@ public class Ticket {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+
+
   // 도착 공항
   @Column(nullable = false)
   private String endPoint;
@@ -58,5 +60,4 @@ public class Ticket {
   @JoinColumn(name = "member_id", nullable = false)
   @ManyToOne(fetch = FetchType.LAZY)
   private Member member;
-
 }
