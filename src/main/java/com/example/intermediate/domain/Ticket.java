@@ -46,6 +46,9 @@ public class Ticket {
   @Column(nullable = false)
   private int bookingNum;
 
+  @Column(nullable = false)
+  private int days;
+
 
   // 여행 일자별 지출을 담고 있는 passenger의 리스트
   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
