@@ -31,7 +31,7 @@ public class PassengerService {
     List<Passenger> passengerList = new ArrayList<>();
 
     //해당 ticket의 cost가 없는 passenger를 days만큼 생성하여 passengerList에 더한다.
-    for (int i = 0; i < ticket.getDays(); i++) {
+    for (int i = 0; i < 5; i++) {
       Passenger passenger = Passenger.builder()
         .ticket(ticket)
         .subTotal(0)

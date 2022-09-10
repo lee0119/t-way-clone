@@ -67,9 +67,7 @@ public class SecurityConfiguration {
         //인증없이 회원가입, 로그인 허용
         .and()
         .authorizeRequests()
-        .antMatchers("/member/signup").permitAll()
-        .antMatchers("/member/login").permitAll()
-        .antMatchers("/excel/**").permitAll()
+        .antMatchers("**").permitAll()
         .anyRequest().authenticated()
 
         .and()

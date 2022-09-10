@@ -16,13 +16,13 @@ import java.util.List;
 @AllArgsConstructor
 public class TicketResponseDto {
   private Long id;
-  private String arrivalCity;
-  private String startCity;
-  private String domesticStartTime;
-  private String domesticArrivalTime;
-  private int domesticNum;
+  private String endPoint;
+  private String startPoint;
+  private String flyNum;
+  private String startTime;
+  private String endTime;
+  private String takeTime;
   private int charge;
-  private int count;
 
   private List<PassengerResponseDto> passengerList = new ArrayList<>();
 }

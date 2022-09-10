@@ -1,8 +1,5 @@
 package com.example.intermediate.service;
 
-
-import com.example.intermediate.dto.request.TicketRequestDto;
-import com.example.intermediate.domain.Passenger;
 import com.example.intermediate.domain.Member;
 import com.example.intermediate.domain.Ticket;
 import com.example.intermediate.dto.response.*;
@@ -10,18 +7,19 @@ import com.example.intermediate.jwt.TokenProvider;
 import com.example.intermediate.repository.PassengerRepository;
 import com.example.intermediate.repository.TicketRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.json.JSONParser;
-import org.h2.util.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -35,11 +33,10 @@ public class TicketService {
   private final TokenProvider tokenProvider;
   private final TicketRepository ticketRepository;
   private final PassengerRepository passengerRepository;
-  private final PassengerService passengerService;
 
   //ticket 생성 메서드
   @Transactional
-  public ResponseDto<?> createTicket(TicketRequestDto requestDto, HttpServletRequest request) {
+  public ResponseDto<?> createTicket(HttpServletRequest request) {
 
     //토큰 유효성 검사, 유효하면 해당 member 가져옴 아니면 null
     Member member = isValipassengerAccess(request);
@@ -58,9 +55,16 @@ public class TicketService {
 
   // 입력받은 id의 ticket 상세 정보가 담긴 dto 반환 메서드
   @Transactional(readOnly = true)
-  public ResponseDto<?> getTicket() throws IOException {
-    StringBuilder urlBuilder = new StringBuilder("http://openapi.airport.co.kr/service/rest/AirportCodeList/getAirportCodeList"); /*URL*/
-    urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "Zt6RrqFpINSOd/H6T+spf7QTmDLyQax2Ndj5BcB8wQflFBh5/2lRDS8AzQJpu/x5sQyLWpdOZJN+IQBofM1mSw=="); /*Service Key*/
+  public ResponseDto<?> getTicket() throws IOException, ParseException {
+    StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/1613000/DmstcFlightNvgInfoService/getFlightOpratInfoList"); /*URL*/
+    urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "Rbd1ck8kI/5Z3493Di78Ls4RU4ojemoBWVtDTUWyC1O8ll3KhKbwZbIOqUtEeEAj4+7hv7z6knIbHLBZV03eng=="); /*Service Key*/
+    urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지번호*/
+    urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
+    urlBuilder.append("&" + URLEncoder.encode("_type","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*데이터 타입(xml, json)*/
+    urlBuilder.append("&" + URLEncoder.encode("depAirportId","UTF-8") + "=" + URLEncoder.encode("NAARKSS", "UTF-8")); /*출발공항ID*/
+    urlBuilder.append("&" + URLEncoder.encode("arrAirportId","UTF-8") + "=" + URLEncoder.encode("NAARKPC", "UTF-8")); /*도착공항ID*/
+    urlBuilder.append("&" + URLEncoder.encode("depPlandTime","UTF-8") + "=" + URLEncoder.encode("20220910", "UTF-8")); /*출발일(YYYYMMDD)*/
+    urlBuilder.append("&" + URLEncoder.encode("airlineId","UTF-8") + "=" + URLEncoder.encode("TWB", "UTF-8")); /*항공사ID*/
     URL url = new URL(urlBuilder.toString());
     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
     conn.setRequestMethod("GET");
@@ -79,8 +83,25 @@ public class TicketService {
     }
     rd.close();
     conn.disconnect();
-    System.out.println(sb.toString());
-    return ResponseDto.success(sb);
+    List<AirportResponseDto> responseDtoList = new ArrayList<>();
+    JSONParser jsonParser = new JSONParser();
+    JSONObject jsonObject = (JSONObject)jsonParser.parse(sb.toString());
+    JSONObject response = (JSONObject)jsonObject.get("response");
+    JSONObject body = (JSONObject)response.get("body");
+    JSONObject items = (JSONObject)body.get("items");
+    JSONArray airportList = (JSONArray) items.get("item");
+    for (Object o : airportList) {
+      JSONObject airport = (JSONObject) o;
+      responseDtoList.add(AirportResponseDto.builder()
+              .endPoint(airport.get("arrAirportNm").toString())
+              .endTime(airport.get("arrPlandTime").toString())
+              .startPoint(airport.get("depAirportNm").toString())
+              .startTime(airport.get("depPlandTime").toString())
+              .charge(Integer.parseInt(airport.get("economyCharge").toString()))
+              .flyNum(airport.get("vihicleId").toString())
+              .build());
+    }
+    return ResponseDto.success(responseDtoList);
   }
 
 

@@ -22,33 +22,26 @@ public class Ticket {
 
   // 도착 공항
   @Column(nullable = false)
-  private String arrivalCity;
+  private String endPoint;
   // 출발 공항
   @Column(nullable = false)
-  private String startCity;
-  // 여행 소개 내용
+  private String startPoint;
+  // 항공기 편명
   @Column(nullable = false)
-  private String content;
-
+  private String flyNum;
   // 출발 시간
   @Column(nullable = false)
-  private String domesticStartTime;
-
+  private String startTime;
   // 여행 종료일
   @Column(nullable = false)
-  private String domesticArrivalTime;
-
-  // 항공편명
+  private String endTime;
+  // 소요시간
   @Column(nullable = false)
-  private int domesticNum;
+  private String takeTime;
 
-  // 여행 기간 모든 날짜 총 지출 비용
+  // 항공편 가격
   @Column(nullable = false)
   private int charge;
-
-  @Column(nullable = false)
-  private int count;
-
 
   // 여행 일자별 지출을 담고 있는 passenger의 리스트
   @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
