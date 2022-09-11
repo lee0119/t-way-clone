@@ -136,7 +136,7 @@ public class TicketService {
         return ResponseDto.success(passenger);
     }
 
-    //탑승자 정보 저장 !
+    //탑승자 정보 저장 !!
     @Transactional
     public void getBookingNum(Passenger passenger) {
         List<Passenger> passengertList = new ArrayList<>();
