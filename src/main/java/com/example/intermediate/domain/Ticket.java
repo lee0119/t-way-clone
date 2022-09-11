@@ -21,7 +21,6 @@ public class Ticket {
   private Long id;
 
 
-
   // 도착 공항
   @Column(nullable = false)
   private String endPoint;

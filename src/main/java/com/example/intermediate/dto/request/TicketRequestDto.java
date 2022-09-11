@@ -28,5 +28,5 @@ public class TicketRequestDto {
   // 항공편 가격
   private int charge;
 
-  private List<PassengerResponseDto> passengerList = new ArrayList<>();
+  private List<PassengerRequestDto> passengerList = new ArrayList<>();
 }
