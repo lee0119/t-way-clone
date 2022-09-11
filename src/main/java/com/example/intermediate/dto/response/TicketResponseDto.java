@@ -1,5 +1,6 @@
 package com.example.intermediate.dto.response;
 
+import com.example.intermediate.dto.request.PassengerRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,5 +25,5 @@ public class TicketResponseDto {
   private String takeTime;
   private int charge;
 
-  private List<PassengerResponseDto> passengerList = new ArrayList<>();
+  private List<PassengerRequestDto> passengerList = new ArrayList<>();
 }

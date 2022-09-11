@@ -127,30 +127,30 @@ public class TicketService {
         return ResponseDto.success(responseDtoList);
     }
 
-    @Transactional
-    public ResponseDto<?> createPassenger(HttpServletRequest request) {
-
-        //dto에 담긴 정보로 Passenger 생성
-        Passenger passenger = Passenger.builder().build();
-        passengerRepository.save(passenger);
-        return ResponseDto.success(passenger);
-    }
-
-    //탑승자 정보 저장 !!
-    @Transactional
-    public void getBookingNum(Passenger passenger) {
-        List<Passenger> passengertList = new ArrayList<>();
-        //해당 ticket의 cost가 없는 passenger를 days만큼 생성하여 passengerList에 더한다.
-        for (int i = 0; i < 5; i++) {
-            Passenger passenger = Passenger.builder()
-                    .ticket(ticket)
-                    .id(id)
-                    .bookingNum(bookingNum)
-                    .build();
-            passengertList.add(passenger);
-        }
-        passengerRepository.saveAll(passengertList);
-    }
+//    @Transactional
+//    public ResponseDto<?> createPassenger(HttpServletRequest request) {
+//
+//        //dto에 담긴 정보로 Passenger 생성
+//        Passenger passenger = Passenger.builder().build();
+//        passengerRepository.save(passenger);
+//        return ResponseDto.success(passenger);
+//    }
+//
+//    //탑승자 정보 저장 !!
+//    @Transactional
+//    public void getBookingNum(Passenger passenger) {
+//        List<Passenger> passengertList = new ArrayList<>();
+//        //해당 ticket의 cost가 없는 passenger를 days만큼 생성하여 passengerList에 더한다.
+//        for (int i = 0; i < 5; i++) {
+//            Passenger passenger = Passenger.builder()
+//                    .ticket(ticket)
+//                    .id(id)
+//                    .bookingNum(bookingNum)
+//                    .build();
+//            passengertList.add(passenger);
+//        }
+//        passengerRepository.saveAll(passengertList);
+//    }
 
 
     //ticket 삭제 메서드. ticket에 포함된 하위 요소들도 모두 같이 삭제된다.
@@ -169,17 +169,17 @@ public class TicketService {
 //        }
 //    }
 
-    @Transactional
-    public PassengerResponseDto<?> createPassenger(PassengerRequestDto requestDto) {
-
-        Passenger passenger = Passenger.builder()  //탑승자 생성
-                .userId(requestDto.getUserId())
-                .gender(requestDto.getGender())
-                .build();
-        passengerRepository.save(passenger);
-        return ResponseDto.success("예약에 성공했습니다");
-    }
-
+//    @Transactional
+//    public PassengerResponseDto<?> createPassenger(PassengerRequestDto requestDto) {
+//
+//        Passenger passenger = Passenger.builder()  //탑승자 생성
+//                .userId(requestDto.getUserId())
+//                .gender(requestDto.getGender())
+//                .build();
+//        passengerRepository.save(passenger);
+//        return ResponseDto.success("예약에 성공했습니다");
+//    }
+//
 
       //ticket과 연결된 passenger 삭제
 //      passengerRepository.deleteAllByTicket(ticket);
