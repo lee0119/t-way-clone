@@ -35,77 +35,76 @@ public class PassengerService {
   * 입력받은 ticket에 days 만큼의 passenger를 만들어 passengerList를 생성한다.
   * */
 
+//
+//
+//    @Transactional
+//    public ResponseDto<?> createPassenger(PassengerRequestDto requestDto, HttpServletRequest request) {
+//        if (null == request.getHeader("Refresh-Token")) {
+//            return ResponseDto.fail("MEMBER_NOT_FOUND",
+//                    "로그인이 필요합니다.");
+//        }
+//        if (null == request.getHeader("Authorization")) {
+//            return ResponseDto.fail("MEMBER_NOT_FOUND",
+//                    "로그인이 필요합니다.");
+//        }
+////        Member member = validateMember(request);
+////        if (null == member) {
+////            return ResponseDto.fail("INVALID_TOKEN", "Token이 유효하지 않습니다.");
+////        }
+//        Member member = memberService.isPresentMember(requestDto.getRequestId());
+//        if (null == member) {
+//            return ResponseDto.fail("NOT_FOUND", "존재하지 않는 유저 id 입니다.");
+//        }
+//
+//        Passenger passenger = Passenger.builder()
+//                .ticket(ticket)
+//
+//
+//                .bookingNum(requestDto.getBookingNum())
+//
+//                .build();
+//        passengerRepository.save(passenger);
+//
+//        return ResponseDto.success(
+//                PassengerResponseDto.builder()
+//                        .id(passenger.getId())
+//                        .country(passenger.getCountry())
+//                        .name(passenger.getName())
+//                        .name(passenger.getName())
+//                        .birth(passenger.getBirth())
+//                        .email(passenger.getEmail())
+//                        .number(passenger.getNumber())
+//                        .build()
+//        );
+//    }
+//
 
-
-    @Transactional
-    public ResponseDto<?> createPassenger(PassengerRequestDto requestDto, HttpServletRequest request) {
-        if (null == request.getHeader("Refresh-Token")) {
-            return ResponseDto.fail("MEMBER_NOT_FOUND",
-                    "로그인이 필요합니다.");
-        }
-
-        if (null == request.getHeader("Authorization")) {
-            return ResponseDto.fail("MEMBER_NOT_FOUND",
-                    "로그인이 필요합니다.");
-        }
-
-        Member member = validateMember(request);
-        if (null == member) {
-            return ResponseDto.fail("INVALID_TOKEN", "Token이 유효하지 않습니다.");
-        }
-
-
-        Ticket ticket = TicketService.isPresentPost(requestDto.?? ());
-        if (null == ticket) {
-            return ResponseDto.fail("NOT_FOUND", "존재하지 않는 게시글 id 입니다.");
-        }
-
-        Passenger passenger = Passenger.builder()
-                .ticket(ticket)
-             
-                .bookingNum(requestDto.getBookingNum())
-
-                .build();
-        passengerRepository.save(passenger);
-
-        return ResponseDto.success(
-                PassengerResponseDto.builder()
-                        .id(passenger.getId())
-                        .country(passenger.getCountry())
-                        .name(passenger.getName())
-                        .name(passenger.getName())
-                        .birth(passenger.getBirth())
-                        .email(passenger.getEmail())
-                        .number(passenger.getNumber())
-                        .build()
-        );
-    }
   //  booking 조회
-  @Transactional(readOnly = true)
-  public ResponseDto<?> getBookingNum (Long ) {
-      Ticket Ticket = TicketService.isPresentPost(requestDto, );
-      if (null == Ticket) {
-          return ResponseDto.fail("NOT_FOUND", "존재하지 않는 게시글 id 입니다.");
-      }
-
-      List<Passenger> passengerList = passengerRepository.findAllByTicket(ticket);
-      List<PassengerResponseDto> commentResponseDtoList = new ArrayList<>();
-
-      for (Passenger passenger : passengertList) {
-
-          passengerResponseDtoList.add(
-                  passengerResponseDto.builder()
-                          .id(passenger.getId())
-                          .country(passenger.getCountry())
-                          .name(passenger.getName())
-                          .name(passenger.getName())
-                          .birth(passenger.getBirth())
-                          .email(passenger.getEmail())
-                          .number(passenger.getNumber())
-                          .build()
-          );
-      }
-      return ResponseDto.success(commentResponseDtoList);
-  }
+//  @Transactional(readOnly = true)
+//  public ResponseDto<?> getBookingNum (Long getBookingNum) {
+//      Ticket Ticket = TicketService.isPresentTicket(requestDto, );
+//      if (null == Ticket) {
+//          return ResponseDto.fail("NOT_FOUND", "존재하지 않는 게시글 id 입니다.");
+//      }
+//
+//      List<Passenger> passengerList = passengerRepository.findAllByTicket(ticket);
+//      List<PassengerResponseDto> commentResponseDtoList = new ArrayList<>();
+//
+//      for (Passenger passenger : passengertList) {
+//
+//          passengerResponseDtoList.add(
+//                  passengerResponseDto.builder()
+//                          .id(passenger.getId())
+//                          .country(passenger.getCountry())
+//                          .name(passenger.getName())
+//                          .name(passenger.getName())
+//                          .birth(passenger.getBirth())
+//                          .email(passenger.getEmail())
+//                          .number(passenger.getNumber())
+//                          .build()
+//          );
+//      }
+//      return ResponseDto.success(commentResponseDtoList);
+//  }
 
 }

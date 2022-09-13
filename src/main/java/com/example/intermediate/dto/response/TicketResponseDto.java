@@ -24,6 +24,7 @@ public class TicketResponseDto {
   private String endTime;
   private String takeTime;
   private int charge;
+  private String bookingNum;
 
   private List<PassengerRequestDto> passengerList = new ArrayList<>();
 }

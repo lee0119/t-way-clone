@@ -14,12 +14,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AirportResponseDto {
-  private String airlineNm;
-  private String arrAirportNm;
-  private String arrPlandTime;
-  private String depAirportNm;
-  private String depPlandTime;
-  private String economyCharge;
+  private String endPoint;
+  private String endTime;
+  private String startPoint;
+  private String startTime;
+  private String charge;
+  private String flyNum;
   private String prestigeCharge;
   private String vihicleId;
 }
